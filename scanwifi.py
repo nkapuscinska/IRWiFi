@@ -15,7 +15,7 @@ def scan_networks():
 
     timeout = 10
     while not wlan.active() and timeout > 0:
-        print("Waiting for WiFi activation...")
+        print("⌚ Waiting for WiFi activation...")
         time.sleep(1)
         timeout -= 1
 
@@ -33,7 +33,7 @@ def scan_networks():
         return
 
     if not networks:
-        print("No networks found.")
+        print("No networks found. 😫")
         return
 
     found_ssids = []

@@ -30,7 +30,7 @@ class IRReceiver:
         if self.reading and len(self.raw_data) > 10:
             code = self._decode_nec(self.raw_data)
             if code:
-                print("Odebrano kod IR:", code)
+                print("Odebrano kod IR: 👍", code)
                 self._save_code(code)
             self.reading = False
             self.last_time = 0
