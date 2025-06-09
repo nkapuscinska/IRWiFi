@@ -7,9 +7,18 @@ KNOWN_NETWORKS = {
     "InnaSiec": "InneHaslo123"
 }
 
+class WiFi:
+    _instance = None
+
+    @classmethod
+    def get_instance(cls):
+        if cls._instance is None:
+            cls._instance = network.WLAN(network.STA_IF)
+            cls._instance.active(True)
+        return cls._instance
+
 def scan_networks():
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
+    wlan = WiFi.get_instance()
 
     print("Activating interface...")
 

@@ -1,5 +1,4 @@
 import time
-import network
 from umqtt.simple import MQTTClient
 
 class MQTTManager:
