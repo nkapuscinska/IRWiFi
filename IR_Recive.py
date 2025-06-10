@@ -21,7 +21,7 @@ class IRReceiver:
             self.raw_data = []
             self.reading = True
             self.last_time = time.ticks_us()
-            return  # pomiń pierwszy duration
+            return  
         duration = time.ticks_diff(now, self.last_time)
         self.last_time = now
         self.raw_data.append(duration)
@@ -30,7 +30,7 @@ class IRReceiver:
         if self.reading and len(self.raw_data) > 10:
             code = self._decode_nec(self.raw_data)
             if code:
-                print("Odebrano kod IR: 👍", code)
+                print("Odebrano kod IR:", code)
                 self._save_code(code)
             self.reading = False
             self.last_time = 0
@@ -42,7 +42,7 @@ class IRReceiver:
 
         bits = ""
         for duration in data[1:]:
-            if duration > 1600:  # typowo: 1 = ~1.7ms, 0 = ~0.6ms
+            if duration > 1600:
                 bits += "1"
             else:
                 bits += "0"
@@ -59,6 +59,7 @@ class IRReceiver:
             codes = []
 
         codes.append(code)
+
 
         with open(self.storage_file, "w") as f:
             ujson.dump(codes, f)

@@ -6,7 +6,9 @@ class IRSender:
         self.pin = Pin(pin_number, Pin.OUT)
         self.pwm = PWM(self.pin, freq=carrier_freq, duty=0)  # modulacja 38 kHz
 
-    def _carrier_on(self):
+    # def _carrier_on(self):
+    #     self.pwm.duty(1023)  # ~50% wypełnienia
+        def _carrier_on(self):
         self.pwm.duty(512)  # ~50% wypełnienia
 
     def _carrier_off(self):
@@ -23,7 +25,8 @@ class IRSender:
     def send_nec(self, code_hex):
         # NEC: nagłówek 9ms + 4.5ms
         self._send_pulse(9000)
-        self._send_space(4500)
+        self._send_space(4500)  
+
 
         code = int(code_hex, 16)
         bits = f"{code:032b}"

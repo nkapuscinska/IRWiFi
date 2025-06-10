@@ -7,12 +7,13 @@ SEND_PIN = 26
 
 write_mode = False
 
+ir = IRReceiver(pin_number=RECIVE_PIN)
+sender = IRSender(pin_number=SEND_PIN)  # GPIO26 for sending
 
 def mqtt_callback(topic, msg):
-    global write_mode
+    global write_mode, sender, ir
         
-    ir = IRReceiver(pin_number=RECIVE_PIN)
-    sender = IRSender(pin_number=SEND_PIN)  # GPIO26 for sending
+
 
     try:
         command = msg.decode().strip()
@@ -39,25 +40,27 @@ def mqtt_callback(topic, msg):
             if not codes:
                 print("No saved IR codes.")
             else:
-                print("Sending all saved IR codes via IR_Send:")
-                for number, code in enumerate(codes):
-                    try:
-                        print(f"Sending code #{number+1}: {code}")
-                        sender.send_nec(code)
-                        print("Sent.")
-                        # time.sleep(0.5)
-                    except Exception as e:
-                        print(f"Error sending code #{number+1}: {e}")
+                # print("Sending all saved IR codes via IR_Send:")
+                # for number, code in enumerate(codes):
+                #     try:
+                #         print(f"Sending code #{number+1}: {code}")
+                #         sender.send_nec(code)
+                #         print("Sent.")
+                #         # time.sleep(0.5)
+                #     except Exception as e:
+                #         print(f"Error sending code #{number+1}: {e}")
+                print(codes)
 
         elif command.isdigit() and 1 <= int(command) <= 10:
             number = int(command) - 1
             codes = ir.get_saved_codes()
+            print(codes)
             if 0 <= number < len(codes):
                 try:
                     print(f"Sending code #{command}: {codes[number]}")
                 except Exception as e:
                     print(f"Sending code #{command}: [cannot display code: {e}]")
-                sender.send_nec(codes[number])
+                    sender.send_nec(codes[number])
                 print("Sent.")
             else:
                 print(f"No code saved under number {command}.")

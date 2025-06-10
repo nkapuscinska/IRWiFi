@@ -64,7 +64,7 @@ class MQTTManager:
             try:
                 self.client.check_msg()
             except Exception as e:
-                print("MQTT message check error: 😒", e)
+                print("MQTT message check error:", e)
 
     def wait_msg(self):
         if self.client:
