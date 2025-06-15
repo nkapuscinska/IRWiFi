@@ -1,4 +1,3 @@
-import time
 from umqtt.simple import MQTTClient
 
 class MQTTManager:
@@ -9,8 +8,8 @@ class MQTTManager:
         self.user = user
         self.password = password
         self.keepalive = keepalive
-        self.client = None
         self.debug = debug
+        self.client = None
         self.connected = False
 
     def connect(self):
@@ -36,11 +35,9 @@ class MQTTManager:
             self.client.disconnect()
             self.connected = False
             if self.debug:
-                print("Disconnected from MQTT broker")
+                print("Disconnected from MQTT broker.")
 
     def publish(self, topic, message):
-        if not self.connected:
-            self.connect()
         try:
             self.client.publish(topic, message)
             if self.debug:
@@ -65,10 +62,3 @@ class MQTTManager:
                 self.client.check_msg()
             except Exception as e:
                 print("MQTT message check error:", e)
-
-    def wait_msg(self):
-        if self.client:
-            try:
-                self.client.wait_msg()
-            except Exception as e:
-                print("MQTT wait for message error:", e)

@@ -8,7 +8,7 @@ class IRSender:
 
     # def _carrier_on(self):
     #     self.pwm.duty(1023)  # ~50% wypełnienia
-        def _carrier_on(self):
+    def _carrier_on(self):
         self.pwm.duty(512)  # ~50% wypełnienia
 
     def _carrier_off(self):
