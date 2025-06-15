@@ -6,8 +6,6 @@ class IRSender:
         self.pin = Pin(pin_number, Pin.OUT)
         self.pwm = PWM(self.pin, freq=carrier_freq, duty=0)  # modulacja 38 kHz
 
-    # def _carrier_on(self):
-    #     self.pwm.duty(1023)  # ~50% wypełnienia
     def _carrier_on(self):
         self.pwm.duty(512)  # ~50% wypełnienia
 

@@ -27,6 +27,7 @@ def main():
                 mqtt.check_msg()
             except Exception as e:
                 print(f"MQTT message check error: {e}")
+                
                 try:
                     mqtt.connect()
                     mqtt.subscribe(MQTT_TOPIC_RECEIVED, mqtt_handler.callback)

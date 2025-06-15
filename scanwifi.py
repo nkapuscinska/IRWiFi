@@ -1,7 +1,6 @@
 import network
 import time
 
-# Your saved WiFi credentials
 KNOWN_NETWORKS = {
     "UPC4489698_2.4GHz": "Pawel130130",
     "InnaSiec": "InneHaslo123"

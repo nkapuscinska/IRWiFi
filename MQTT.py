@@ -20,6 +20,7 @@ class MQTTManager:
             user=self.user,
             password=self.password,
             keepalive=self.keepalive
+            
         )
         try:
             self.client.connect()

@@ -6,7 +6,7 @@ class MQTTCommandHandler:
         self.write_mode = False
         self.ir = IRReceiver(pin_number=recive_pin)
         self.sender = IRSender(pin_number=send_pin)
-        self.mqtt_manager = mqtt_manager  # referencja do MQTTManager, jeśli potrzebna
+        self.mqtt_manager = mqtt_manager  
 
     def callback(self, topic, msg):
         try:
@@ -33,12 +33,10 @@ class MQTTCommandHandler:
                 codes = self.ir.get_saved_codes()
                 if not codes:
                     print("No saved IR codes.")
-                    # Wyślij pustą listę na temat ir/send
                     if self.mqtt_manager:
                         self.mqtt_manager.publish(b"ir/send", b"[]")
                 else:
                     print("Sending list of all saved IR codes via MQTT (ir/send):")
-                    # Wyślij listę kodów jako string na temat ir/send
                     if self.mqtt_manager:
                         import ujson
                         codes_json = ujson.dumps(codes)

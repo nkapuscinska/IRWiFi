@@ -7,7 +7,6 @@ class IRReceiver:
         self.pin = Pin(pin_number, Pin.IN)
         self.timer = Timer(0)
         self.storage_file = storage_file
-
         self.raw_data = []
         self.reading = False
         self.last_time = 0
